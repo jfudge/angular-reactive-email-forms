@@ -1,5 +1,69 @@
 <main>
-<div class="container-fluid">
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h3>Angular 7 Reactive Form</h3>
+                <form [formGroup]="userprofileForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" formControlName="firstName" />
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" formControlName="lastName" />
+					</div>
+					<div class="form-group">
+                        <label>Password</label>
+                        <input type="text" class="form-control" formControlName="lastName" />
+					</div>
+					<div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="text" class="form-control" formControlName="lastName" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input [class.is-invalid]="primEmail.invalid && primEmail.touched" type="email" class="form-control"
+			  			formControlName="primaryEmail" />
+	  
+						<div *ngIf="(primEmail.invalid && primEmail.touched) || primEmail.dirty">
+						<small *ngIf="primEmail.errors?.required" class="text-danger">Primary email is required</small>
+
+						<small *ngIf="primEmail.errors?.pattern" class="text-danger">Please provide a valid email address</small>
+						</div>
+                       
+					</div>
+					
+					<div class="form-group">
+						<label>Email Value: {{ this.userprofileForm.controls['primaryEmail'].value }} </label>
+					</div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <main>
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<h3>Angular 7 Reactive Form Validation</h3>
 	<form [formGroup]="userprofileForm" (ngSubmit)="onSubmit()">
 		<div class="form-group">
 			<label>First Name:</label>
@@ -18,7 +82,7 @@
 	  
 			<div *ngIf="(primEmail.invalid && primEmail.touched) || primEmail.dirty">
 			  <small *ngIf="primEmail.errors?.required" class="text-danger">Primary email is required</small>
-			  <!--question mark(?) is a safe navigation operator-->
+
 			  <small *ngIf="primEmail.errors?.pattern" class="text-danger">Please provide a valid email address</small>
 			</div>
 		</div>
@@ -30,4 +94,8 @@
 
 	</form>
 </div>
-</main>
+</div>
+</div>
+</div>
+
+</main> -->
