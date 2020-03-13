@@ -1,31 +1,31 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { OnInit, Component } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+@Component({ selector: 'app', templateUrl: 'app.component.html', styleUrls: ['./app.component.css'] })
+export class AppComponent implements OnInit {
+    userprofileForm: FormGroup;
+    submitted = false;
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent {
+    constructor(private formBuilder: FormBuilder) { }
 
-get primEmail(){
-	return this.userprofileForm.get('primaryEmail')
-  }
+    ngOnInit() {
+        this.userprofileForm = this.formBuilder.group({
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required, Validators.minLength(6)]],
+         });
+    }
 
-userprofileForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    //email: new FormControl(''),
-    email: new FormControl('',[
-      Validators.required,
-      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
-      primaryEmail: new FormControl('',[
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])
-});
+    get f() { return this.userprofileForm.controls };
 
-onSubmit() {
-  console.log(this.userprofileForm.controls['firstName'].value);
-}
+    onSubmit() {
+        this.submitted = true;
+
+        if (this.userprofileForm.invalid) {
+            return;
+        }
+
+        alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.userprofileForm.value, null, 4));
+    }
 
 }
